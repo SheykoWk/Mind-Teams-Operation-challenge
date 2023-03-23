@@ -60,7 +60,7 @@ export class UsersController {
   @Delete(':id')
   async deleteUser(@Param('id', ParseUUIDPipe) userId: string) {
     try {
-      const user = await this.userService.deleteUSer(userId);
+      const user = await this.userService.deleteUser(userId);
       return user;
     } catch (error) {
       throw error;

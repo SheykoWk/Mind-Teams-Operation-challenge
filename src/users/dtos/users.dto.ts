@@ -19,14 +19,6 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   readonly english_level: EnglishLevels;
-
-  @IsString()
-  @IsNotEmpty()
-  readonly role?: string;
-
-  @IsString()
-  @IsNotEmpty()
-  readonly status?: string;
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
