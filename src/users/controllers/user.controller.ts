@@ -7,6 +7,8 @@ import {
   ParseUUIDPipe,
   Delete,
   Patch,
+  NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from '../dtos/users.dto';
 import { UserService } from '../services/users.service';
@@ -20,7 +22,7 @@ export class UsersController {
       const users = await this.userService.getAllUsers();
       return users;
     } catch (error) {
-      throw error;
+      throw new BadRequestException(error.message);
     }
   }
 
@@ -28,10 +30,10 @@ export class UsersController {
   async getById(@Param('id', ParseUUIDPipe) id: any) {
     try {
       const user = await this.userService.getUserById(id);
-      if (!user) throw new Error('User not found');
+      if (!user) throw new NotFoundException('User not found');
       return user;
     } catch (error) {
-      throw error;
+      throw new BadRequestException(error.message);
     }
   }
 
@@ -41,7 +43,7 @@ export class UsersController {
       const user = await this.userService.createUser(userDto);
       return user;
     } catch (error) {
-      throw error;
+      throw new BadRequestException(error.message);
     }
   }
 
@@ -54,7 +56,7 @@ export class UsersController {
       const user = await this.userService.updateUser(userId, updateUserDto);
       return user;
     } catch (error) {
-      throw error;
+      throw new BadRequestException(error.message);
     }
   }
   @Delete(':id')
@@ -63,7 +65,7 @@ export class UsersController {
       const user = await this.userService.deleteUser(userId);
       return user;
     } catch (error) {
-      throw error;
+      throw new BadRequestException(error.message);
     }
   }
 }
