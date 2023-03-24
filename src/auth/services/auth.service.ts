@@ -20,11 +20,14 @@ export class AuthService {
   async checkUsersCredentials(loginDto: LoginUserDto) {
     const user = await this.userService.getUserByEmail(loginDto.email);
 
+    if (!user) {
+      return null;
+    }
     const checkPasswordsMatch = comparePassword(
       loginDto.password,
       user.password,
     );
-    if (!checkPasswordsMatch || !user) {
+    if (!checkPasswordsMatch) {
       return null;
     }
     const { password, ...rta } = user;

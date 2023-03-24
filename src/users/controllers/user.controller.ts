@@ -33,7 +33,7 @@ export class UsersController {
       if (!user) throw new NotFoundException('User not found');
       return user;
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new NotFoundException('User not found');
     }
   }
 
